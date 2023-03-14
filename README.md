@@ -94,3 +94,20 @@ $ python3 predict.py --input_file {INPUT_FILE_PATH} --output_file {OUTPUT_FILE_P
 
 - [Huggingface Transformers](https://github.com/huggingface/transformers)
 - [pytorch-crf](https://github.com/kmkurn/pytorch-crf)
+
+## Modifications for GraspOptES
+
+- Add a dataset generator for grasps in Intents.ipynb. This may be used to generate more types of sentences used for intent classification.
+
+## Usage
+
+Run the following on the (new_pytorch_graspnet) environment.
+Train the intent classification model.
+```bash
+$ python3 main.py --task grasp \
+                  --model_type bert \
+                  --model_dir grasp_model \
+                  --do_train --do_eval \
+                  --use_crf
+```
+If retraining is required (e.g. modification to the dataset), all cache files must be deleted.
