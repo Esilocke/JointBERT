@@ -1,0 +1,15 @@
+PAD
+UNK
+O
+B-object_type
+I-object_type
+B-object_position
+I-object_position
+B-object_target
+I-object_target
+B-object_descriptor
+I-object_descriptor
+B-secondary_object
+I-secondary_object
+B-secondary_object_descriptor
+I-secondary_object_descriptor

@@ -7,8 +7,9 @@ import numpy as np
 import torch
 from torch.utils.data import TensorDataset, DataLoader, SequentialSampler
 
-from utils import init_logger, load_tokenizer, get_intent_labels, get_slot_labels, MODEL_CLASSES
-
+from utils_bert import init_logger, load_tokenizer, get_intent_labels, get_slot_labels, MODEL_CLASSES
+import logging
+logging.disable(logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -125,12 +126,11 @@ def convert_input_file_to_tensor_dataset(lines,
     return dataset
 
 
-def predict(pred_config):
+def predict(pred_config, model):
     # load model and args
     args = get_args(pred_config)
     device = get_device(pred_config)
-    model = load_model(pred_config, args, device)
-    logger.info(args)
+    #logger.info(args)
 
     intent_label_lst = get_intent_labels(args)
     slot_label_lst = get_slot_labels(args)
@@ -149,7 +149,7 @@ def predict(pred_config):
     intent_preds = None
     slot_preds = None
 
-    for batch in tqdm(data_loader, desc="Predicting"):
+    for batch in tqdm(data_loader, desc="Predicting", disable=True):
         batch = tuple(t.to(device) for t in batch)
         with torch.no_grad():
             inputs = {"input_ids": batch[0],
@@ -206,7 +206,8 @@ def predict(pred_config):
                     line = line + "[{}:{}] ".format(word, pred)
             f.write("<{}> -> {}\n".format(intent_label_lst[intent_pred], line.strip()))
 
-    logger.info("Prediction Done!")
+    #logger.info("Prediction Done!")
+    return lines, slot_preds_list, intent_preds
 
 
 if __name__ == "__main__":
