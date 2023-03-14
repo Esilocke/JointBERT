@@ -98,6 +98,8 @@ $ python3 predict.py --input_file {INPUT_FILE_PATH} --output_file {OUTPUT_FILE_P
 ## Modifications for GraspOptES
 
 - Add a dataset generator for grasps in Intents.ipynb. This may be used to generate more types of sentences used for intent classification.
+- Separate out the model generation for greater efficiency when attempting to perform intent classification multiple times.
+- Add the get_intents() function in intent_parser.py
 
 ## Usage
 
